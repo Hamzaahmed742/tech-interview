@@ -1,5 +1,6 @@
 import express from 'express';
 const router = express.Router();
+import {DEFAULT_COLOR} from './constant.js';
 
 router.get('/get-range', async (req, res) => {
 	const db = req.app.get('db');
@@ -27,6 +28,7 @@ router.post('/create', async (req, res) => {
 		name,
 		description,
 		datetime,
+		color,
 	} = req.body;
 
 	if (!name || !datetime)
@@ -38,6 +40,7 @@ router.post('/create', async (req, res) => {
 		name,
 		description,
 		datetime: new Date(datetime),
+		color: color || DEFAULT_COLOR,
 	});
 	res.json({ success: true });
 });

@@ -2,11 +2,12 @@
 	<div>
 		<h1 class="text-3xl text-gray-800 font-bold mb-4">Your reminders for a week from now:</h1>
 		<reminder-card
-			v-for="reminder in reminders"
-			:key="reminder._id"
-			:name="reminder.name"
-			:description="reminder.description"
-			:datetime="reminder.datetime"
+			v-for="{_id, name, description, datetime, color} in reminders"
+			:key="_id"
+			:name="name"
+			:description="description"
+			:datetime="datetime"
+			:color="color"
 			/>
 		<div>
 			<button class="p-2 my-2 bg-gray-100" @click="openReminderModal">Create</button>

@@ -1,11 +1,16 @@
 <template>
 	<dialog ref="dialog" class="border border-black rounded-md shadow-md">
 		<div class="flex flex-col">
-			<button class="absolute top-0 right-0 m-2 p-2" @click="close">🗙</button>
+			<button class="absolute top-0 right-0 m-2 p-2" @click="close">x</button>
 			<h2 class="text-2xl text-gray-800 font-bold mb-4">New reminder</h2>
 			<input class="p-2 my-2" type="text" v-model="name" placeholder="name"/>
 			<textarea class="p-2 my-2" type="text" v-model="description" placeholder="description"/>
 			<input class="p-2 my-2" type="datetime-local" v-model="datetime" />
+			<select v-model="selectedColor" value="selectedColor" class="p-2" :style="{color: selectedColor}">
+				<option v-for="color in colors" v-bind:value="color">
+            {{ color }}
+          </option>
+				</select>
 			<button class="p-2 my-2 bg-gray-100" @click="create">Create</button>
 		</div>
 	</dialog>
@@ -14,10 +19,12 @@
 <script>
 export default {
 	data: () => ({
+    selectedColor: 'white',
 		isOpen: true,
 		name: '',
 		description: '',
 		datetime: new Date().toLocaleString('sv').replace(' ', 'T'),
+		colors: ['red', 'blue', 'green', 'yellow', 'white'],
 	}),
 	mounted() {
 	},
@@ -39,6 +46,7 @@ export default {
 					name: this.name,
 					description: this.description,
 					datetime: this.datetime,
+          color: this.selectedColor,
 				}),
 			})).json();
 			if (res.err) {
